@@ -18,11 +18,10 @@
 8. Feature Engineering
      i. Feature Selection Techniques
      ii. Feature Reduction Techniques
-10. ML Model Building
-11. Hyperparameter Tuning to select best model
-12. Select Best Model
-13. Build Pipeline
-14. Create STreamlit Application
+9. ML Model Building, Hyperparameter Tuning
+10. Select Best Model
+11. Build Pipeline
+12. Create STreamlit Application
 
 ## 1. Objective of the Project
 - The objective of the project is to predict whether a startup which is currently Operating, IPO, Acquired, or closed.This problem will be solved through a Supervised Machine Learning approach by training a model based on the history of startups which were either acquired or closed.
@@ -71,7 +70,7 @@
 ### i. Delete irrelevant & redundant information
 - Delete `region, city, state_code` as they provide too much of granularity.
 - Delete `id, Unnamed: 0.1, entity_type, entity_id, parent_id, created_by, created_at, updated_at` as they are redundant.
-- Delete `name`, domain`, `homepage_url`, `twitter_username`, `logo_url`, `logo_width`, `logo_height`, `short_description`, `description`, `overview`,`tag_list`, `name`, `normalized_name`, `permalink` as they are irrelevant features.
+- Delete `name`, `domain`, `homepage_url`, `twitter_username`, `logo_url`, `logo_width`, `logo_height`, `short_description`, `description`, `overview`,`tag_list`, `name`, `normalized_name`, `permalink` as they are irrelevant features.
 
 ### ii. Remove noise or unreliable data (duplicate, missing values and outliers).
 - Drop the columns which contains more than 97% of null rows
@@ -139,3 +138,40 @@ Observation and feature selection based on PCA:
 Observation and feature selection based on Mutual Information Scores:
 - There are total 38 Independed features. Out of 36, 12 features have MI Score 0, Hence these features have no dependency or doest carry any information which will help us to predict target class.
 - `founded_at`,  `last_funding_at`, `funding_rounds`, `funding_total_usd`, `last_milestone_at`, `relationships`, `milestones`, `lat`, `active_days`, `country_code_CAT`, `country_code_DEU`, `country_code_IND`,`country_code_ISR`, `country_code_USA`, `category_code_analytics`, `category_code_biotech`, `category_code_cleantech`, `category_code_education`, `category_code_enterprise`,`category_code_game_video`, `category_code_mobile`, `category_code_others`, `category_code_software` and `category_code_web`. These are the selected features having MI Score greater than Zero.
+
+## 9. Machine Learning Model Building: Binary and Multi class models
+Lets use top 10 classification models, traian then and test on testing dataset and evaluate them using `Accuracy score, precision, recall` because our data is Imbalanced.
+1. Logistic Regression
+2. Naive Bayes
+3. KNN - K-Nearest Neighbors
+4. SVC - Support Vector Classifier
+5. Decision Tree Classifier
+6. Random Forest Classifier
+7. Extra Trees Classifier
+8. Ada Boost Classifier
+9. Gradient Boosting Classifier
+10. XG Boost Classifier
+
+## 10. Select Best models
+- `Logistic Regression`, `Support Vector Classifier`, `Random Forest Classifier`, `Extra Trees Classifier` and `Gradient Boosting Classifier` exhibit remarkable performance with an accuracy of 100% on both training and testing datasets.
+- These models demonstrate exceptional generalization as they have successfully classified all test values without any misclassifications.
+- Although we did not observed `Any Overfitting` but still to Overcome `Overfitting` we have used `Feature Selection`, `Cross Validation`, `Hyperparamer Tunning`, `Regularization Techniques` in Logistic Regression and used `Ensemble Models` like Random Forest, Extra Trees, Gradient Boosting, Ada Boost and XgBoost.
+- This outstanding performance suggests that these models are well-suited for the given task.
+- Selecting `Random Forest Classifier` as a best model to predict `BINARY` target class. `Gradient Boosting Classifier` model as best model to predict `MULTICLASS` target.
+
+## 11. Build Binary and Multiclass Pipeline
+- Selecting best `Binary` class model based on higher precision of Operating class. We selected `Random Forest` which has `100% accuracy` on train and `97% accuracy` on test to build binary class pipeline.
+- Building multivariate model based on the records that bivariate model was not able to predict as Operating class
+- Selecting `Gradient Boosting` model based on higher accuracy to build multiclass pipeline.
+- Serializing these two pipelines 
+
+## 12. Creating Streamlit Application
+- Used the Streamlit open-source library in Python to build a startup acquisition status prediction app. In this app, you will utilize serialized models within a pipeline. The binary pipeline consists of a Random Forest model as the primary model, while the multiclass pipeline incorporates a Gradient Boosting model as the primary classifier.
+- The app will offer users the flexibility to input data either by uploading a CSV file or manually entering values for specific columns. Upon receiving user input, the data undergoes preprocessing steps to ensure it aligns with the model's requirements. Subsequently, the app makes predictions based on the input data.
+- If the initial prediction from the binary pipeline is equal to 0, the app will then engage the multiclass pipeline for further prediction. This two-step process enhances the prediction accuracy and accommodates both binary and multiclass scenarios.
+- Here is a high-level outline of the steps involved in building the app:
+     - Run the Streamlit app, either locally or deploy it to a platform like Streamlit Sharing, Heroku, or another hosting service.
+     - This app structure ensures a seamless user experience, allowing for both file-based and manual data input while incorporating the strengths of both binary and multiclass    predictive models for accurate startup acquisition status predictions.
+
+App link - http://tinyurl.com/2s4tnm5f
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
