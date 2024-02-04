@@ -30,10 +30,9 @@
 ## 2. Data Info
 - This Dataset of Crunchbase companies data.
 - There are 196562 rows and 44 columns out of which will be used as features. The rest provide more information about the data, but will not be used for model training (like normalized name, entity id, short description etc.)
-
-1. `entity_type` : Type of company.
-2. `entity_id` : Unique Id for each entity.
-3. `name` : Name of the entity or company.
+        - `entity_type` : Type of company.
+        - `entity_id` : Unique Id for each entity.
+        - `name` : Name of the entity or company.
 4. `category_code` : Type of company.
 5. `status` : Status of the company, whether it is operating or not and this is our target variable.
 6. `founded_at` : Company foundation yera.
@@ -70,25 +69,28 @@
 
 ## 6. Data Cleaning
 ### i. Delete irrelevant & redundant information
-- Delete 'region','city','state_code' as they provide too much of granularity.
-- Delete 'id', 'Unnamed: 0.1', 'entity_type', 'entity_id', 'parent_id', 'created_by', 'created_at', 'updated_at' as they are redundant.
-- Delete 'name', domain', 'homepage_url', 'twitter_username', 'logo_url', 'logo_width', 'logo_height', 'short_description', 'description', 'overview','tag_list', 'name', 'normalized_name', 'permalink' as they are irrelevant features.
+- Delete `region, city, state_code` as they provide too much of granularity.
+- Delete `id, Unnamed: 0.1, entity_type, entity_id, parent_id, created_by, created_at, updated_at` as they are redundant.
+- Delete `name`, domain`, `homepage_url`, `twitter_username`, `logo_url`, `logo_width`, `logo_height`, `short_description`, `description`, `overview`,`tag_list`, `name`, `normalized_name`, `permalink` as they are irrelevant features.
 
 ### ii. Remove noise or unreliable data (duplicate, missing values and outliers).
 - Drop the columns which contains more than 97% of null rows
-- Delete instances with missing values for 'country_code', 'category_code', 'founded_at' 'first_funding_at', 'first_milestone_at', 'relationships' and 'lat'. (Since these are the type of data where adding value via imputation will create wrong pattern only.)
-- Fill the missing values in numerical columns, 'funding_total_usd' by median. (The median is less sensitive to extreme values compared to the mean. Imputing missing values with the median can be a good choice for right-skewed data as it is robust to outliers.)
+- Delete instances with missing values for `country_code`, `category_code`, `founded_at` `first_funding_at`, `first_milestone_at`, `relationships` and `lat`. (Since these are the type of data where adding value via imputation will create wrong pattern only.)
+- Fill the missing values in numerical columns, `funding_total_usd` by median. (The median is less sensitive to extreme values compared to the mean. Imputing missing values with the median can be a good choice for right-skewed data as it is robust to outliers.)
+- All the 5 columns contains Outliers. But the exstreme outliers found in only three columns, `relationships`, `active_days and `funding_total_usd`. Used IQR method to clip these outliers.
 
 ### iii. Data Transformation
 - Convert data type of Date column from object to datetime and the extract only year.
-- Convert data type of "relationships", "funding_rounds", "milestones" from float to integer.
-- Generalize 'category_code'- Since there are 42 categories, one-hot encoding which is going to create a lot of columns so Lets Check the repetition of value in ascending order and keep the first 15 values and name remaining one as other.
-- Generalize 'country_code'. Since there are 95 counties, one-hot encoding which is going to create a lot of columns so Lets Check the repetition of value in ascending order and keep the first 15 values and name remaining one as other.
+- Convert data type of `relationships`, `funding_rounds`, `milestones` from float to integer.
+- Generalize `category_code`- Since there are 42 categories, one-hot encoding which is going to create a lot of columns so Lets Check the repetition of value in ascending order and keep the first 15 values and name remaining one as other.
+- Generalize `country_code`. Since there are 95 counties, one-hot encoding which is going to create a lot of columns so Lets Check the repetition of value in ascending order and keep the first 15 values and name remaining one as other.
 
 ### iv. Feature Creation
-- Creating "active_days" feature as below,
+- Creating `active_days` feature as below,
      - Replacing values in closed_at columns using below condition:
-     - if the value in status is 'operating' then in closed_at, Let's put 2021.
-     - Where as if the value is 'not-operating', let's put 0.
+     - if the value in status is `operating` then in closed_at, Let`s put 2021.
+     - Where as if the value is `not-operating`, let`s put 0.
      - Subtract founded_date from closed_date, and calculate age in days.
      - Then drop the closed_at column.
+
+## 
