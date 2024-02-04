@@ -1,5 +1,6 @@
 # Project Title: Start Up Acquisition Status Prediction
-# Table of Content
+
+## Table of Content
 1. Objective of the Project
 2. Data info
 3. Loading the packages or libraries
