@@ -1,12 +1,11 @@
 import streamlit as st
-from PIL import Image
 from matplotlib import image
 import os
 
 #Title of the home page
 st.title("Machine Learning Model to Predict Acquisition Status")
 #Using subheader
-st.subheader('By:Suraj Honkamble')
+st.subheader('By:Amarendu, Fatima, Gangothri, Hiba, Suraj')
 
 #Adding Image
 FILE_DIR1 = os.path.dirname(os.path.abspath(__file__))
