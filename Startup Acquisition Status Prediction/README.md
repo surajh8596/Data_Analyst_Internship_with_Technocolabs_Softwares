@@ -30,9 +30,9 @@
 ## 2. Data Info
 - This Dataset of Crunchbase companies data.
 - There are 196562 rows and 44 columns out of which will be used as features. The rest provide more information about the data, but will not be used for model training (like normalized name, entity id, short description etc.)
-        - `entity_type` : Type of company.
-        - `entity_id` : Unique Id for each entity.
-        - `name` : Name of the entity or company.
+1. `entity_type` : Type of company.
+2. `entity_id` : Unique Id for each entity.
+3. `name` : Name of the entity or company.
 4. `category_code` : Type of company.
 5. `status` : Status of the company, whether it is operating or not and this is our target variable.
 6. `founded_at` : Company foundation yera.
@@ -93,4 +93,49 @@
      - Subtract founded_date from closed_date, and calculate age in days.
      - Then drop the closed_at column.
 
-## 
+## 7. Exploratory Data Analysis
+### i. Univariate Analysis
+Below are the some business insights from `Univariate Analysis`,
+- The most frequently occurring category is `Other,` representing 2,237 instances, indicating a diverse range of businesses. Following closely is the `Software` category with 1,590 companies, emphasizing a significant presence in the software sector.
+- While the majority of companies, constituting 94.0%, are currently operating, it`s important to note a class imbalance, with only 6% categorized as not-operating.
+- Trend is from earlist to newsest in all above date related columns. Most companies founded in 2011, most companies recieved their first funding in year 2012, maximum companies recieved last funding in the year 2013. Maximum companies reached their first milestone in 2012 and the last milestone is in the year 2013.
+- Most of the entities or the copanies resides in USA, followed by Other country.
+
+### ii. Bivariate Analysis
+Below are the some business insights from `Bivariate Analysis`,
+- Most of the entities or the copanies resides in USA, followed by Other country.
+- The USA has the highest number of companies across almost all categories. Other countries, such as the United Kingdom (GBR) and Canada (CAN), also have a significant presence in various categories.
+- `Software` and `E-commerce` are among the most popular categories across all countries, with the USA leading in these sectors. The `Other` category also shows notable activity, suggesting a diverse range of industries or startups.
+- Some countries exhibit specialization in specific categories; for example, Israel (ISR) has a relatively higher concentration in `Enterprise` and `Security.`
+- Categories like `Biotech,` `Cleantech,` and `Analytics` have a presence across different countries, indicating a focus on emerging and innovative technologies.
+- The United States (USA) stands out with the highest average number of funding rounds per company (approximately 1.56). Emerging market India (IND) shows least average funding rounds per company of approximately 1.27.
+- The United States (USA) is the top recipient of funding, with a total of $4.64 million USD. Australia (AUS) and Spain (ESP) have least average funding totals.
+- Companies in France (FRA) and the United Kingdom (GBR) demonstrate longer active days, with values of 4252.80 and 4181.84, respectively. This suggests a potentially longer operational longevity.
+- The Analytics compananies stands out with the highest average number of funding rounds per company (approximately 1.7). Web category companies shows least average funding rounds per company of approximately 1.4.
+- `BioTech` followed by `DeanTech` companies `operating most days` and Least operating companies belongs to `Social` category. Maximum average funding recieved by BioTech` followed by `DeanTech` companies and Least average funding is by `Social` companies.
+
+### iii. Multivariate Analysis
+Below are the some business insights from `multivariate Analysis`,
+- The stronger negative correlations (closer to -1) with `isClosed` are observed for `active_days, last_funding_at, first_funding_at`, and `founded_at`.
+- The weaker negative correlations (closer to 0) include `milestones, relationships, funding_rounds, funding_total_usd`.
+- The positive correlations (although weak) are seen with `lat`, `lng`, and `milestones`.
+
+## 8. Feature Engineering
+We used 3 techniques,
+### i. Correlation Analysis & Multico-linearity
+Observation and feature selection based on above correlation Matrix:
+- Multicolinearity exists between columns `first_funding_at` and `last_funding_at` with correlation coefficient `0.85`. also between `first_milestone_at` and `last_milestone_at` with coefficient value `0.86`. We will drop any one column.
+- The stronger negative correlations (closer to -1) with "isClosed" are observed for `active_days`, `last_funding_at`, `first_funding_at`, `first_milestone_at`, `last_milestone_at` and `founded_at`.
+- The weaker negative correlations (closer to 0) include `lng`, `relationships`, `funding_rounds`, `funding_total_usd`.
+- The weaker positive correlations (closer to 0) are seen with `lat` and `milestones`.
+- From above correlation matrix we observed that there are 5 features which have correlation coeffienct less than `+0.05` or `-0.05`. These features are `lng`, `lat`, `funding_rounds`, `funding_total_usd` and `milestones`. We can eliminate these features.
+
+### ii. PCA Technique
+Observation and feature selection based on PCA:
+- 19 Principal Components are selected as Input Features.
+- `X` contains the data represented along the selected principal components. These components capture the most significant information in the dataset while reducing dimensionality.
+
+### iii. Mutual Information Technique
+Observation and feature selection based on Mutual Information Scores:
+- There are total 38 Independed features. Out of 36, 12 features have MI Score 0, Hence these features have no dependency or doest carry any information which will help us to predict target class.
+- `founded_at`,  `last_funding_at`, `funding_rounds`, `funding_total_usd`, `last_milestone_at`, `relationships`, `milestones`, `lat`, `active_days`, `country_code_CAT`, `country_code_DEU`, `country_code_IND`,`country_code_ISR`, `country_code_USA`, `category_code_analytics`, `category_code_biotech`, `category_code_cleantech`, `category_code_education`, `category_code_enterprise`,`category_code_game_video`, `category_code_mobile`, `category_code_others`, `category_code_software` and `category_code_web`. These are the selected features having MI Score greater than Zero.
