@@ -177,4 +177,6 @@ App link - http://tinyurl.com/2s4tnm5f
 
 ![Image Alt Text](https://github.com/surajh8596/Data_Analyst_Internship_with_Technocolabs_Softwares/blob/main/Startup%20Acquisition%20Status%20Prediction/Image/page_1.png)
 ![Image Alt Text](https://github.com/surajh8596/Data_Analyst_Internship_with_Technocolabs_Softwares/blob/main/Startup%20Acquisition%20Status%20Prediction/Image/page_2.png)
+
+Team Members - **Amarendu Laha**, **Fatema Khan**, **Gangothri Guggilam**, **Hibat Allah Chama Bensabbah**, **Suraj Honkamble**
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
