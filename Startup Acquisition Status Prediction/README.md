@@ -174,4 +174,7 @@ Lets use top 10 classification models, traian then and test on testing dataset a
      - This app structure ensures a seamless user experience, allowing for both file-based and manual data input while incorporating the strengths of both binary and multiclass    predictive models for accurate startup acquisition status predictions.
 
 App link - http://tinyurl.com/2s4tnm5f
+
+![Image Alt Text](https://github.com/surajh8596/Data_Analyst_Internship_with_Technocolabs_Softwares/blob/main/Startup%20Acquisition%20Status%20Prediction/Image/page_1.png)
+![Image Alt Text](https://github.com/surajh8596/Data_Analyst_Internship_with_Technocolabs_Softwares/blob/main/Startup%20Acquisition%20Status%20Prediction/Image/page_2.png)
 ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
